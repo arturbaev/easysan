@@ -112,6 +112,7 @@ COLUMNS=1
 }
 
 
+
 function brocade_load_pwwns_fields_fn() {
 #The function parse the file pwwns.csv by fields and set variables for next functions. It also transforms values in pwwns.cvs in correct format by deleting not needed characters and inserting ":" in PWWNs addresses. It has to be placed after funtion "brocade_load_pwwns_line_fn".
 	servername=$(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 1 )
