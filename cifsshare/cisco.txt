@@ -1,0 +1,59 @@
+========== Fabric A ===========
+conf t
+device-alias database
+device-alias name SR_sks06sq127_s0p1 pwwn 21:00:34:80:0d:7a:a1:a0
+device-alias name SR_sks06sq127_s1p1 pwwn 21:00:34:80:0d:7a:a2:a0
+device-alias name SR_sks06sq128_s0p1 pwwn 21:00:34:80:0d:7a:a1:a1
+device-alias name SR_sks06sq128_s1p1 pwwn 21:00:34:80:0d:7a:a2:a1
+device-alias name SR_sks06sq129_s0p1 pwwn 21:00:34:80:0d:7a:a1:a2
+device-alias name SR_sks06sq129_s1p1 pwwn 21:00:34:80:0d:7a:a2:a2
+device-alias name SR_sks06sq130_s0p1 pwwn 21:00:34:80:0d:7a:a1:a3
+device-alias name SR_sks06sq130_s1p1 pwwn 21:00:34:80:0d:7a:a2:a3
+device-alias commit
+zone name DS_N_OS1__OTRS vsan 3
+member device-alias SR_sks06sq127_s0p1 init
+member device-alias SR_sks06sq127_s1p1 init
+member device-alias SR_sks06sq128_s0p1 init
+member device-alias SR_sks06sq128_s1p1 init
+member device-alias SR_sks06sq129_s0p1 init
+member device-alias SR_sks06sq129_s1p1 init
+member device-alias SR_sks06sq130_s0p1 init
+member device-alias SR_sks06sq130_s1p1 init
+zone commit vsan 3
+zoneset name MAIN vsan 3
+member DS_N_OS1__OTRS
+zone commit vsan 3
+zoneset activate name MAIN vsan 3
+zone commit vsan 3
+end
+copy run start fabric
+
+========== Fabric B ===========
+conf t
+device-alias database
+device-alias name SR_sks06sq127_s0p2 pwwn 21:00:34:80:0d:7a:b1:b0
+device-alias name SR_sks06sq127_s1p2 pwwn 21:00:34:80:0d:7a:b2:b0
+device-alias name SR_sks06sq128_s0p2 pwwn 21:00:34:80:0d:7a:b1:b1
+device-alias name SR_sks06sq128_s1p2 pwwn 21:00:34:80:0d:7a:b2:b1
+device-alias name SR_sks06sq129_s0p2 pwwn 21:00:34:80:0d:7a:b1:b2
+device-alias name SR_sks06sq129_s1p2 pwwn 21:00:34:80:0d:7a:b2:b2
+device-alias name SR_sks06sq130_s0p2 pwwn 21:00:34:80:0d:7a:b1:b3
+device-alias name SR_sks06sq130_s1p2 pwwn 21:00:34:80:0d:7a:b2:b3
+device-alias commit
+zone name DS_N_OS1__OTRS vsan 3
+member device-alias SR_sks06sq127_s0p2 init
+member device-alias SR_sks06sq127_s1p2 init
+member device-alias SR_sks06sq128_s0p2 init
+member device-alias SR_sks06sq128_s1p2 init
+member device-alias SR_sks06sq129_s0p2 init
+member device-alias SR_sks06sq129_s1p2 init
+member device-alias SR_sks06sq130_s0p2 init
+member device-alias SR_sks06sq130_s1p2 init
+zone commit vsan 3
+zoneset name MAIN vsan 3
+member DS_N_OS1__OTRS
+zone commit vsan 3
+zoneset activate name MAIN vsan 3
+zone commit vsan 3
+end
+copy run start fabric
