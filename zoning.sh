@@ -33,8 +33,6 @@ COLUMNS=1
 		done
 	done
 }
-
-
 #======================================================================================================================================================
 #=========================================================Brocade======================================================================================
 #======================================================================================================================================================
@@ -140,7 +138,7 @@ servertype=$(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z
 for lines in $(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2)
 	do 
 		brocade_line_servername=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 1 )
-		brocade_line_serverip=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 2 | sed 's/../&:/g;s/:$//')
+		#brocade_line_serverip=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 2 | sed 's/../&:/g;s/:$//')
 		brocade_line_initp1a=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 3 | sed 's/../&:/g;s/:$//')
 		brocade_line_initp1b=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 4 | sed 's/../&:/g;s/:$//')
 		brocade_line_initp2a=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 5 | sed 's/../&:/g;s/:$//')
@@ -222,14 +220,14 @@ COLUMNS=1
 				break
 				;;
 				"Change zonename")
-				read -p "Enter VSAN number: " cisco_vsan
-				echo "Current VSAN is $cisco_vsan"
+				read -p "Enter zonename : " cisco_zonename
+				echo "Current zonename is $cisco_zonename"
 				break
 				break
 				;;
 				"Change zoneset")
-				read -p "Enter VSAN number: " cisco_vsan
-				echo "Current VSAN is $cisco_vsan"
+				read -p "Enter zoneset name: " cisco_zoneset
+				echo "Current zoneset : $cisco_zoneset"
 				break
 				break
 				;;
@@ -253,19 +251,26 @@ IFS=$'\n' #set IFS in new line format. It's vital for that loop.
 xlsx2csv -i ~/scripts/SAN/zoning/cifsshare/pwwns.xlsx > ~/scripts/SAN/zoning/tmp/pwwns.csv
 > ~/scripts/SAN/zoning/tmp/cisco_alias_a
 > ~/scripts/SAN/zoning/tmp/cisco_alias_b
-	servertype=$(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:lower:] [:upper:] | cut -d ',' -f 11 )
+servertype=$(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:lower:] [:upper:] | cut -d ',' -f 11 )
+isname=$(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 9)
+arrayname=$(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 10)
+cisco_vsan=3
+cisco_zonename=DS_$arrayname__$isname
+zone name DS_M9_D7__EPK vsan 3
+cisco_zoneset=MAIN
+
 for lines in $(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2)
 	do 
 		cisco_line_servername=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 1 )
-		cisco_line_serverip=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 2 | sed 's/../&:/g;s/:$//')
+		#cisco_line_serverip=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 2 | sed 's/../&:/g;s/:$//')
 		cisco_line_initp1a=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 3 | sed 's/../&:/g;s/:$//')
 		cisco_line_initp1b=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 4 | sed 's/../&:/g;s/:$//')
 		cisco_line_initp2a=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 5 | sed 's/../&:/g;s/:$//')
 		cisco_line_initp2b=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 6 | sed 's/../&:/g;s/:$//')
 		cisco_line_targetp1a=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 7 | sed 's/../&:/g;s/:$//')
 		cisco_line_targetp1b=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 8 | sed 's/../&:/g;s/:$//')
-		cisco_line_isname=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 9)
-		cisco_line_arrayname=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 10)	
+		#cisco_line_isname=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 9)
+		#cisco_line_arrayname=$(echo $lines | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 10)	
 #Checking part
 		if [ ${#cisco_line_initp1a} -ne 23 ] && [ ${#cisco_line_initp1a} -ne 0 ]; then
 		echo "Error: Check init-1A in the pwwns.xlsx"
