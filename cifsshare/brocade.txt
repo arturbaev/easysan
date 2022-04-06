@@ -1,36 +1,38 @@
-=============== Create zone in Fabric A ===============
-zonecreate --peerzone DS_N_OS1__OTRS -principal "21:00:34:80:0d:7a:ta:t0;21:00:34:80:0d:7a:ta:t1;21:00:34:80:0d:7a:ta:t2;21:00:34:80:0d:7a:ta:t3" -members "21:00:34:80:0d:7a:a1:a0;21:00:34:80:0d:7a:a1:a1;21:00:34:80:0d:7a:a1:a2;21:00:34:80:0d:7a:a1:a3;21:00:34:80:0d:7a:a2:a0;21:00:34:80:0d:7a:a2:a1;21:00:34:80:0d:7a:a2:a2;21:00:34:80:0d:7a:a2:a3"
+========= Brocade create aliases A =========
+alicreate "SR_sks06sq127_11", "21:00:34:80:0d:11:11:11"
+alicreate "SR_sks06sq127_33", "21:00:34:80:0d:33:33:33"
+alicreate "SR_sks06sq128_11", "21:00:34:80:0d:11:11:12"
+alicreate "SR_sks06sq128_33", "21:00:34:80:0d:33:33:34"
+alicreate "SR_sks06sq129_11", "21:00:34:80:0d:11:11:12"
+alicreate "SR_sks06sq129_33", "21:00:34:80:0d:33:33:35"
+alicreate "SR_sks06sq130_11", "21:00:34:80:0d:11:11:12"
+alicreate "SR_sks06sq130_33", "21:00:34:80:0d:33:33:35"
+alicreate "SR_sks06sq131_s0p1", "21:00:34:80:0d:11:11:12"
+alicreate "SR_sks06sq131_s1p1", "21:00:34:80:0d:33:33:35"
+alicreate "SR_sks06sq132_p1", "21:00:34:80:0d:11:11:12"
+alicreate "SR_sks06sq133_p1", "21:00:34:80:0d:11:11:12"
 
-=============== Create zone in Fabric B ===============
-zonecreate --peerzone DS_N_OS1__OTRS -principal "21:00:34:80:0d:7a:tb:t0;21:00:34:80:0d:7a:tb:t1;21:00:34:80:0d:7a:tb:t2;21:00:34:80:0d:7a:tb:t3" -members "21:00:34:80:0d:7a:b1:b0;21:00:34:80:0d:7a:b1:b1;21:00:34:80:0d:7a:b1:b2;21:00:34:80:0d:7a:b1:b3;21:00:34:80:0d:7a:b2:b0;21:00:34:80:0d:7a:b2:b1;21:00:34:80:0d:7a:b2:b2;21:00:34:80:0d:7a:b2:b3"
+========= Brocade create aliases B =========
+alicreate "SR_sks06sq127_22", "21:00:34:80:0d:22:22:22"
+alicreate "SR_sks06sq127_44", "21:00:34:80:0d:44:44:44"
+alicreate "SR_sks06sq128_22", "21:00:34:80:0d:22:22:23"
+alicreate "SR_sks06sq128_44", "21:00:34:80:0d:44:44:45"
+alicreate "SR_sks06sq129_22", "21:00:34:80:0d:22:22:23"
+alicreate "SR_sks06sq129_44", "21:00:34:80:0d:44:44:45"
+alicreate "SR_sks06sq130_22", "21:00:34:80:0d:22:22:23"
+alicreate "SR_sks06sq130_44", "21:00:34:80:0d:44:44:45"
+alicreate "SR_sks06sq131_s0p2", "21:00:34:80:0d:22:22:23"
+alicreate "SR_sks06sq131_s1p2", "21:00:34:80:0d:44:44:45"
+alicreate "SR_sks06sq132_p2", "21:00:34:80:0d:22:22:23"
+alicreate "SR_sks06sq133_p2", "21:00:34:80:0d:22:22:23"
+
+=============== Create peerzone in Fabric A ===============
+zonecreate --peerzone DS_N_OS_1__OTRS -principal "21:00:34:80:0d:7a:tb:t0;21:00:34:80:0d:7a:tb:t1;21:00:34:80:0d:7a:tb:t1;21:00:34:80:0d:7a:tb:t1;21:00:34:80:0d:7a:tb:t1;21:00:34:80:0d:7a:tb:t1;21:00:34:80:0d:7a:tb:t1" -members "21:00:34:80:0d:11:11:11;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:33:33:33;21:00:34:80:0d:33:33:34;21:00:34:80:0d:33:33:35;21:00:34:80:0d:33:33:35;21:00:34:80:0d:33:33:35;null;null"
 
 =============== Add initiators to current zone A ===============
-zoneadd --peerzone DS_N_OS1__OTRS -members "21:00:34:80:0d:7a:a1:a0;21:00:34:80:0d:7a:a1:a1;21:00:34:80:0d:7a:a1:a2;21:00:34:80:0d:7a:a1:a3;21:00:34:80:0d:7a:a2:a0;21:00:34:80:0d:7a:a2:a1;21:00:34:80:0d:7a:a2:a2;21:00:34:80:0d:7a:a2:a3"
+zoneadd --peerzone DS_N_OS_1__OTRS -members "21:00:34:80:0d:11:11:11;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:33:33:33;21:00:34:80:0d:33:33:34;21:00:34:80:0d:33:33:35;21:00:34:80:0d:33:33:35;21:00:34:80:0d:33:33:35;null;null"
 
-=============== Add initiators to current zone B ===============
-zoneadd --peerzone DS_N_OS1__OTRS -members "21:00:34:80:0d:7a:b1:b0;21:00:34:80:0d:7a:b1:b1;21:00:34:80:0d:7a:b1:b2;21:00:34:80:0d:7a:b1:b3;21:00:34:80:0d:7a:b2:b0;21:00:34:80:0d:7a:b2:b1;21:00:34:80:0d:7a:b2:b2;21:00:34:80:0d:7a:b2:b3"
-
-=============== Create aliases in Fabric A ===============
-alicreate "SR_sks06sq127_s0p1", "21:00:34:80:0d:7a:a1:a0"
-alicreate "SR_sks06sq127_s1p1", "21:00:34:80:0d:7a:a2:a0"
-alicreate "SR_sks06sq128_s0p1", "21:00:34:80:0d:7a:a1:a1"
-alicreate "SR_sks06sq128_s1p1", "21:00:34:80:0d:7a:a2:a1"
-alicreate "SR_sks06sq129_s0p1", "21:00:34:80:0d:7a:a1:a2"
-alicreate "SR_sks06sq129_s1p1", "21:00:34:80:0d:7a:a2:a2"
-alicreate "SR_sks06sq130_s0p1", "21:00:34:80:0d:7a:a1:a3"
-alicreate "SR_sks06sq130_s1p1", "21:00:34:80:0d:7a:a2:a3"
-
-=============== Create aliases in Fabric B ===============
-alicreate "SR_sks06sq127_s0p2", "21:00:34:80:0d:7a:b1:b0"
-alicreate "SR_sks06sq127_s1p2", "21:00:34:80:0d:7a:b2:b0"
-alicreate "SR_sks06sq128_s0p2", "21:00:34:80:0d:7a:b1:b1"
-alicreate "SR_sks06sq128_s1p2", "21:00:34:80:0d:7a:b2:b1"
-alicreate "SR_sks06sq129_s0p2", "21:00:34:80:0d:7a:b1:b2"
-alicreate "SR_sks06sq129_s1p2", "21:00:34:80:0d:7a:b2:b2"
-alicreate "SR_sks06sq130_s0p2", "21:00:34:80:0d:7a:b1:b3"
-alicreate "SR_sks06sq130_s1p2", "21:00:34:80:0d:7a:b2:b3"
-
-=============== Add created zone to zoneconfig. Attention! Default cfgname is main_config you can change it ether in option 4 or by edit 87 line in the script ===============
-cfgadd "main_config", "DS_N_OS1__OTRS"
+=============== Add created zone to zoneconfig A================
+cfgadd "main_config", "DS_N_OS_1__OTRS"
 cfgsave
-cfgenable "main_config"
+cfgenable main_config
