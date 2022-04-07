@@ -39,13 +39,10 @@ clear
     echo "q) Quit"
     read option
         if [ 1 = "$option" ]; then
-        clear
         FN_BROCADE
         elif [ 2 = "$option" ]; then
-        clear
         FN_CISCO
         elif [ 3 = "$option" ]; then
-        clear
         FN_HUAWEI
         elif [ q = "$option" ]; then
         break
@@ -58,24 +55,23 @@ done
 #Brocade menu
 FN_BROCADE(){
 while true; do
+    echo ""
     echo "===== BROCADE MENU ====="
     echo "1) Reload the pwwns.xlsx"
-    echo "2) Show peerzone commands"
-    echo "3) Show standart zone commands"
+    echo "2) Show zone commands"
+    echo "3) Connect to the switch"
     echo "h) Show foscommandref"
     echo "b) Back to main menu"
     echo "q) Quit"
         read option
         if [ 1 = "$option" ]; then
         FN_RELOAD
-        clear
         elif [ 2 = "$option" ]; then
         FN_SH_BROCADE_PEER
         elif [ 3 = "$option" ]; then
-        FN_SH_BROCADE_STANDART
+        echo "2"
         elif [ h = "$option" ]; then
         less $HOME/scripts/SAN/zoning/cifsshare/foscommandref.txt
-        clear
         elif [ b = "$option" ]; then
         break
         elif [ q = "$option" ]; then
@@ -88,7 +84,9 @@ done
 
 #Cisco menu
 FN_CISCO(){
+clear
 while true; do
+    echo ""
     echo "===== CISCO MENU ====="
     echo "1) Reload the pwwns.xlsx"
     echo "2) Show zone commands"
@@ -98,12 +96,10 @@ while true; do
         read option
         if [ 1 = "$option" ]; then
         FN_RELOAD
-        clear
         elif [ 2 = "$option" ]; then
         FN_SH_CISCO
         elif [ 3 = "$option" ]; then
         echo "test"
-        clear
         elif [ b = "$option" ]; then
         break
         elif [ q = "$option" ]; then
@@ -116,7 +112,9 @@ done
 
 #Huawei menu
 FN_HUAWEI(){
+clear
 while true; do
+    echo ""
     echo "===== HUAWEI MENU ====="
     echo "1) Reload the pwwns.xlsx"
     echo "2) Show config commands"
@@ -296,7 +294,6 @@ brocade_peerzone_initb=$(echo "${init_s0p2[*]}" "${init_s1p2[*]}" | sed 's/null 
 }
 
 
-
 #Show perrzone commands
 FN_SH_BROCADE_PEER(){
 
@@ -360,84 +357,10 @@ echo "cfgenable $cfgname" | tee -a $brocade_txt
 echo ""
 }
 
-
-
-
 FN_SH_BROCADE_STANDART(){
-echo "================= Brocade standart zone Fabric A =================" | tee $brocade_txt
-echo "" | tee -a $brocade_txt
-#Zone create A
-a=-1
-for i in $(echo ${servername[*]}); do
-    b=-1
-    ((a=a+1))
-    echo ""
-    if [ null = "${init_s1p1[$a]}" ]; then
-        for i in $(echo ${targeta[*]}); do
-             ((b=b+1))
-             echo "zonecrate \"$zonename"__"${servername[$a]}"_"${suf_s0p1[$a]}\", \"${targeta[$b]}; ${init_s0p1[$a]}\"" | tee -a $brocade_txt
-            brocadestandartzonea+=($(echo $zonename"__"${servername[$a]}"_"${suf_s0p1[$a]}))
-        done
-    else
-        for i in $(echo ${targeta[*]}); do
-             ((b=b+1))
-             echo "zonecrate \"$zonename"__"${servername[$a]}"_"${suf_s0p1[$a]}\", \"${targeta[$b]}; ${init_s0p1[$a]}\"" | tee -a $brocade_txt
-             echo "zonecrate \"$zonename"__"${servername[$a]}"_"${suf_s1p1[$a]}\", \"${targeta[$b]}; ${init_s1p1[$a]}\"" | tee -a $brocade_txt
-             brocadestandartzonea+=($(echo $zonename"__"${servername[$a]}"_"${suf_s0p1[$a]}))
-             brocadestandartzonea+=($(echo $zonename"__"${servername[$a]}"_"${suf_s1p1[$a]}))
-        done
-    fi
-done
+echo "1"
 
-#format brocadestandartzonea output
-brocade_standart_zone_a=$(echo ${brocadestandartzonea[*]} | tr ' ' ';' | sed 's/;/; / g' )
-
-echo "" | tee -a $brocade_txt
-#cfgadd, cfgsave, cfgenable
-echo "cfgadd \"$cfgname\", \"$brocade_standart_zone_a\"" | tee -a $brocade_txt
-echo "" | tee -a $brocade_txt
-echo "cfgsave" | tee -a $brocade_txt
-echo "cfgenable $cfgname" | tee -a $brocade_txt
-echo "" | tee -a $brocade_txt
-echo "" | tee -a $brocade_txt
-
-#Zone create B
-echo "================= Brocade standart zone Fabric B =================" | tee -a $brocade_txt
-echo "" | tee -a $brocade_txt
-a=-1
-for i in $(echo ${servername[*]}); do
-    b=-1
-    ((a=a+1))
-    echo ""
-    if [ null = "${init_s1p2[$a]}" ]; then
-        for i in $(echo ${targetb[*]}); do
-             ((b=b+1))
-             echo "zonecrate \"$zonename"__"${servername[$a]}"_"${suf_s0p2[$a]}\", \"${targetb[$b]}; ${init_s0p2[$a]}\"" | tee -a $brocade_txt
-            brocadestandartzoneb+=($(echo $zonename"__"${servername[$a]}"_"${suf_s0p2[$a]}))
-        done
-    else
-        for i in $(echo ${targeta[*]}); do
-             ((b=b+1))
-             echo "zonecrate \"$zonename"__"${servername[$a]}"_"${suf_s0p2[$a]}\", \"${targetb[$b]}; ${init_s0p2[$a]}\"" | tee -a $brocade_txt
-             echo "zonecrate \"$zonename"__"${servername[$a]}"_"${suf_s1p2[$a]}\", \"${targetb[$b]}; ${init_s1p2[$a]}\"" | tee -a $brocade_txt
-             brocadestandartzoneb+=($(echo $zonename"__"${servername[$a]}"_"${suf_s0p2[$a]}))
-             brocadestandartzoneb+=($(echo $zonename"__"${servername[$a]}"_"${suf_s1p2[$a]}))
-        done
-    fi
-done
-
-#format brocadestandartzonea output
-brocade_standart_zone_b=$(echo ${brocadestandartzoneb[*]} | tr ' ' ';' | sed 's/;/; / g' )
-
-echo "" | tee -a $brocade_txt
-#cfgadd, cfgsave, cfgenable
-echo "cfgadd \"$cfgname\", \"$brocade_standart_zone_b\"" | tee -a $brocade_txt
-echo "" | tee -a $brocade_txt
-echo "cfgsave" | tee -a $brocade_txt
-echo "cfgenable $cfgname" | tee -a $brocade_txt
-echo "" | tee -a $brocade_txt
 }
-
 
 #Show cisco zone commands
 FN_SH_CISCO(){
@@ -486,6 +409,7 @@ echo "zoneset activate name $zoneset vsan $vsan" | tee -a $cisco_txt
 echo "zone commit vsan $vsan" | tee -a $cisco_txt
 echo "end" | tee -a $cisco_txt
 echo "copy run start fabric" | tee -a $cisco_txt
+echo "" | tee -a $cisco_txt
 echo "" | tee -a $cisco_txt
 
 #ZONE FAB B
@@ -537,11 +461,8 @@ echo "zone commit vsan $vsan" | tee -a $cisco_txt
 echo "end" | tee -a $cisco_txt
 echo "copy run start fabric" | tee -a $cisco_txt
 echo "" | tee -a $cisco_txt
+echo "" | tee -a $cisco_txt
 }
-
-
-
-
 
 FN_SH_HUAWEI(){
 operating_system=VMware_ESX
