@@ -3,20 +3,31 @@ conf t
 device-alias database
 device-alias name SR_sks06sq127_p1 pwwn 21:00:34:80:0d:11:11:11
 device-alias name SR_sks06sq128_p1 pwwn 21:00:34:80:0d:11:11:12
-device-alias name SR_sks06sq129_p1 pwwn 21:00:34:80:0d:11:11:12
-device-alias name SR_sks06sq130_p1 pwwn 21:00:34:80:0d:11:11:12
-device-alias name SR_sks06sq131_p1 pwwn 21:00:34:80:0d:11:11:12
-device-alias name SR_sks06sq132_p1 pwwn 21:00:34:80:0d:11:11:12
-device-alias name SR_sks06sq133_p1 pwwn 21:00:34:80:0d:11:11:12
+device-alias name SR_sks06sq129_s0p1 pwwn 21:00:34:80:0d:11:11:12
+device-alias name SR_sks06sq129_s1p1 pwwn 21:00:34:80:0d:11:11:12
+device-alias name SR_sks06sq130_s0p1 pwwn 21:00:34:80:0d:11:11:12
+device-alias name SR_sks06sq130_s1p1 pwwn 21:00:34:80:0d:11:11:12
+device-alias name SR_sks06sq131_s0p1 pwwn 21:00:34:80:0d:11:11:12
+device-alias name SR_sks06sq131_s1p1 pwwn 21:00:34:80:0d:11:11:12
+device-alias name SR_sks06sq132_s0p1 pwwn 21:00:34:80:0d:11:11:12
+device-alias name SR_sks06sq132_s1p1 pwwn 21:00:34:80:0d:11:11:12
+device-alias name SR_sks06sq133_s0p1 pwwn 21:00:34:80:0d:11:11:12
+device-alias name SR_sks06sq133_s1p1 pwwn 21:00:34:80:0d:11:11:12
 device-alias commit
 zone name DS_N_OS_1__OTRS vsan 3
+member device-alias N_OS1_A10 target
 member device-alias SR_sks06sq127_p1 init
 member device-alias SR_sks06sq128_p1 init
-member device-alias SR_sks06sq129_p1 init
-member device-alias SR_sks06sq130_p1 init
-member device-alias SR_sks06sq131_p1 init
-member device-alias SR_sks06sq132_p1 init
-member device-alias SR_sks06sq133_p1 init
+member device-alias SR_sks06sq129_s0p1 init
+member device-alias SR_sks06sq129_s1p1 init
+member device-alias SR_sks06sq130_s0p1 init
+member device-alias SR_sks06sq130_s1p1 init
+member device-alias SR_sks06sq131_s0p1 init
+member device-alias SR_sks06sq131_s1p1 init
+member device-alias SR_sks06sq132_s0p1 init
+member device-alias SR_sks06sq132_s1p1 init
+member device-alias SR_sks06sq133_s0p1 init
+member device-alias SR_sks06sq133_s1p1 init
 zone commit vsan 3
 zoneset name MAIN vsan 3
 member DS_N_OS_1__OTRS
@@ -31,20 +42,31 @@ conf t
 device-alias database
 device-alias name SR_sks06sq127_p2 pwwn 21:00:34:80:0d:22:22:22
 device-alias name SR_sks06sq128_p2 pwwn 21:00:34:80:0d:22:22:23
-device-alias name SR_sks06sq129_p2 pwwn 21:00:34:80:0d:22:22:23
-device-alias name SR_sks06sq130_p2 pwwn 21:00:34:80:0d:22:22:23
-device-alias name SR_sks06sq131_p2 pwwn 21:00:34:80:0d:22:22:23
-device-alias name SR_sks06sq132_p2 pwwn 21:00:34:80:0d:22:22:23
-device-alias name SR_sks06sq133_p2 pwwn 21:00:34:80:0d:22:22:23
+device-alias name SR_sks06sq129_s0p2 pwwn 21:00:34:80:0d:22:22:23
+device-alias name SR_sks06sq129_s1p2 pwwn 21:00:34:80:0d:22:22:23
+device-alias name SR_sks06sq130_s0p2 pwwn 21:00:34:80:0d:22:22:23
+device-alias name SR_sks06sq130_s1p2 pwwn 21:00:34:80:0d:22:22:23
+device-alias name SR_sks06sq131_s0p2 pwwn 21:00:34:80:0d:22:22:23
+device-alias name SR_sks06sq131_s1p2 pwwn 21:00:34:80:0d:22:22:23
+device-alias name SR_sks06sq132_s0p2 pwwn 21:00:34:80:0d:22:22:23
+device-alias name SR_sks06sq132_s1p2 pwwn 21:00:34:80:0d:22:22:23
+device-alias name SR_sks06sq133_s0p2 pwwn 21:00:34:80:0d:22:22:23
+device-alias name SR_sks06sq133_s1p2 pwwn 21:00:34:80:0d:22:22:23
 device-alias commit
 zone name DS_N_OS_1__OTRS vsan 3
+member device-alias N_OS1_A11 target
 member device-alias SR_sks06sq127_p2 init
 member device-alias SR_sks06sq128_p2 init
-member device-alias SR_sks06sq129_p2 init
-member device-alias SR_sks06sq130_p2 init
-member device-alias SR_sks06sq131_p2 init
-member device-alias SR_sks06sq132_p2 init
-member device-alias SR_sks06sq133_p2 init
+member device-alias SR_sks06sq129_s0p2 init
+member device-alias SR_sks06sq129_s1p2 init
+member device-alias SR_sks06sq130_s0p2 init
+member device-alias SR_sks06sq130_s1p2 init
+member device-alias SR_sks06sq131_s0p2 init
+member device-alias SR_sks06sq131_s1p2 init
+member device-alias SR_sks06sq132_s0p2 init
+member device-alias SR_sks06sq132_s1p2 init
+member device-alias SR_sks06sq133_s0p2 init
+member device-alias SR_sks06sq133_s1p2 init
 zone commit vsan 3
 zoneset name MAIN vsan 3
 member DS_N_OS_1__OTRS

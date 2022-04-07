@@ -1,24 +1,32 @@
-================= Brocade standart zone Fabric A =================
+============= Brocade peerzone Fabric A =================
+alicreate "SR_sks06sq127_s0p1", "21:00:34:80:0d:11:11:12"
+alicreate "SR_sks06sq127_s1p1", "21:00:34:80:0d:11:11:12"
+alicreate "SR_sks06sq128_s0p1", "21:00:34:80:0d:11:11:12"
+alicreate "SR_sks06sq128_s1p1", "21:00:34:80:0d:11:11:12"
+alicreate "SR_sks06sq129_p1", "21:00:34:80:0d:11:11:12"
+alicreate "SR_sks06sq130_p1", "21:00:34:80:0d:11:11:12"
 
-zonecrate "DS_N_OS_1__OTRS__sks06sq127_s0p1", "tt:tt:tt:tt:11:11:11:11; 21:00:34:80:0d:11:11:11"
-zonecrate "DS_N_OS_1__OTRS__sks06sq127_s1p1", "tt:tt:tt:tt:11:11:11:11; 21:00:34:80:0d:22:22:22"
-zonecrate "DS_N_OS_1__OTRS__sks06sq128_s0p1", "tt:tt:tt:tt:11:11:11:11; 21:00:34:80:0d:11:11:12"
-zonecrate "DS_N_OS_1__OTRS__sks06sq128_s1p1", "tt:tt:tt:tt:11:11:11:11; 21:00:34:80:0d:22:22:23"
+zonecreate --peerzone DS_N_OS_1__OTRS -principal "n_:os:1_:a1:0" -members "21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12"
 
-cfgadd "main_config", "DS_N_OS_1__OTRS__sks06sq127_s0p1; DS_N_OS_1__OTRS__sks06sq127_s1p1; DS_N_OS_1__OTRS__sks06sq128_s0p1; DS_N_OS_1__OTRS__sks06sq128_s1p1"
+zoneadd --peerzone DS_N_OS_1__OTRS -members "21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12;21:00:34:80:0d:11:11:12"
 
+cfgadd "main_config", "DS_N_OS_1__OTRS"
 cfgsave
 cfgenable main_config
 
 
-================= Brocade standart zone Fabric B =================
-zonecrate "DS_N_OS_1__OTRS__sks06sq127_s0p2", "tt:tt:tt:tt:22:22:22:22; 21:00:34:80:0d:22:22:22"
-zonecrate "DS_N_OS_1__OTRS__sks06sq127_s1p2", "tt:tt:tt:tt:22:22:22:22; 21:00:34:80:0d:22:22:44"
-zonecrate "DS_N_OS_1__OTRS__sks06sq128_s0p2", "tt:tt:tt:tt:22:22:22:22; 21:00:34:80:0d:22:22:23"
-zonecrate "DS_N_OS_1__OTRS__sks06sq128_s1p2", "tt:tt:tt:tt:22:22:22:22; 21:00:34:80:0d:22:22:45"
+============= Brocade peerzone Fabric B =================
+alicreate "SR_sks06sq127_s0p2", "21:00:34:80:0d:22:22:22"
+alicreate "SR_sks06sq127_s1p2", "21:00:34:80:0d:22:22:22"
+alicreate "SR_sks06sq128_s0p2", "21:00:34:80:0d:22:22:23"
+alicreate "SR_sks06sq128_s1p2", "21:00:34:80:0d:22:22:23"
+alicreate "SR_sks06sq129_p2", "21:00:34:80:0d:22:22:24"
+alicreate "SR_sks06sq130_p2", "21:00:34:80:0d:22:22:25"
 
-cfgadd "main_config", "DS_N_OS_1__OTRS__sks06sq127_s0p2; DS_N_OS_1__OTRS__sks06sq127_s1p2; DS_N_OS_1__OTRS__sks06sq128_s0p2; DS_N_OS_1__OTRS__sks06sq128_s1p2"
+zonecreate --peerzone DS_N_OS_1__OTRS -principal "n_:os:1_:a1:1" -members "21:00:34:80:0d:22:22:22;21:00:34:80:0d:22:22:23;21:00:34:80:0d:22:22:24;21:00:34:80:0d:22:22:25;21:00:34:80:0d:22:22:22;21:00:34:80:0d:22:22:23"
 
+zoneadd --peerzone DS_N_OS_1__OTRS -members "21:00:34:80:0d:22:22:22;21:00:34:80:0d:22:22:23;21:00:34:80:0d:22:22:24;21:00:34:80:0d:22:22:25;21:00:34:80:0d:22:22:22;21:00:34:80:0d:22:22:23"
+
+cfgadd "main_config", "DS_N_OS_1__OTRS"
 cfgsave
 cfgenable main_config
-

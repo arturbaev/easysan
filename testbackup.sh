@@ -191,6 +191,11 @@ fi
 #to clear arrys:
 FN_CLEAR_ARR(){
 
+port_s0p1=()
+port_s0p2=()
+port_s1p1=()
+port_s1p2=()
+
 suf_s0p1=()
 suf_s0p2=()
 suf_s1p1=()
@@ -217,18 +222,14 @@ servername=($(cat $pwwns_csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:u
 ip=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*0-9,.,\n' | cut -d ',' -f 4 ))
 init_s0p1=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 5 | sed 's/../&:/g;s/:$//'))
 init_s0p2=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 6 | sed 's/../&:/g;s/:$//'))
-
 targeta=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 9 | sed 's/../&:/g;s/:$//'))
 targetb=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 10 | sed 's/../&:/g;s/:$//'))
-
 alitargeta=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 9 ))
 alitargetb=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 10 ))
 
 #create temp vars for array
-a="-1"
 list=$(cat $pwwns_csv | tail -n +2)
 for list in $(cat $pwwns_csv | tail -n +2); do
-((a=a+1))
 t_init_s1p1=$(echo $list | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 7 | sed 's/../&:/g;s/:$//')
 t_init_s1p2=$(echo $list | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 8 | sed 's/../&:/g;s/:$//')
 t_port_s0p1=$(echo $list |  tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 11)
@@ -236,55 +237,88 @@ t_port_s0p2=$(echo $list |  tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 12)
 t_port_s1p1=$(echo $list |  tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 13)
 t_port_s1p2=$(echo $list |  tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 14)
 #Create init s1p* arrays from temp vars
-    if ! [ -z "$t_init_s1p1" ]; then
-        init_s1p1+=("$t_init_s1p1")
+     if ! [ -z "$t_init_s1p1" ]; then
+         init_s1p1+=("$t_init_s1p1")
+     else
+         init_s1p1+=("null")
+     fi
+     if ! [ -z "$t_init_s1p2" ]; then
+         init_s1p2+=("$t_init_s1p2")
+     else
+         init_s1p2+=("null")
+     fi
+#Create port suffix arrays:
+     if ! [ -z "$t_port_s0p1" ]; then
+         port_s0p1+=("$t_port_s0p1")
+     else
+         port_s0p1+=("null")
+     fi
+     if ! [ -z "$t_port_s0p2" ]; then
+        port_s0p2+=("$t_port_s0p2")
     else
-        init_s1p1+=("null")
+        port_s0p2+=("null")
     fi
-    if ! [ -z "$t_init_s1p2" ]; then
-        init_s1p2+=("$t_init_s1p2")
+    if ! [ -z "$t_port_s1p1" ]; then
+        port_s1p1+=("$t_port_s1p1")
     else
-        init_s1p2+=("null")
+        port_s1p1+=("null")
     fi
-#Create port suffix arrays: (p1,p2,s0p1,s0p2,s1p1,s1p2)
+    if ! [ -z "$t_port_s1p2" ]; then
+        port_s1p2+=("$t_port_s1p2")
+    else
+        port_s1p2+=("null")
+    fi
+done
 
-    if ! [ -z "$t_port_s0p1" ]; then
-        temp_suf="$t_port_s0p1"
+
+
+#create suffix s*p* arrays.
+a="-1"
+for i in $(echo ${servername[*]}); do
+((a=a+1))
+    if [ null != "${port_s0p1[$a]}" ]; then
+    temp_suf="${port_s0p1[$a]}"
     elif [ null != "${init_s1p1[$a]}" ]; then
-        temp_suf=s0p1
+    temp_suf=s0p1
     else
-         temp_suf=p1
+    temp_suf=p1
     fi
     suf_s0p1+=($temp_suf)
-    
-    if ! [ -z "$t_port_s0p2" ]; then
-        temp_suf="$t_port_s0p2"
+#Checking s0p2
+    if [ null != "${port_s0p2[$a]}" ]; then
+    temp_suf="${port_s0p2[$a]}"
     elif [ null != "${init_s1p2[$a]}" ]; then
-        temp_suf=s0p2
+    temp_suf=s0p2
     else
-         temp_suf=p2
+    temp_suf=p2
     fi
     suf_s0p2+=($temp_suf)
-
-    if ! [ -z "$t_port_s1p1" ]; then
-        temp_suf="$t_port_s1p1"
+#Checking s1p1
+    if [ null != "${port_s1p1[$a]}" ]; then
+    temp_suf="${port_s1p1[$a]}"
     elif [ null != "${init_s1p1[$a]}" ]; then
-        temp_suf=s1p1
+    temp_suf=s1p1
     else
-         temp_suf=p1
+    temp_suf=p1
     fi
     suf_s1p1+=($temp_suf)
-
-    if ! [ -z "$t_port_s1p2" ]; then
-        temp_suf="$t_port_s1p2"
+#Checking s1p2
+    if [ null != "${port_s1p2[$a]}" ]; then
+    temp_suf="${port_s1p2[$a]}"
     elif [ null != "${init_s1p2[$a]}" ]; then
-        temp_suf=s1p2
+    temp_suf=s1p2
     else
-        temp_suf=p2
+    temp_suf=p2
     fi
     suf_s1p2+=($temp_suf)
-
 done
+
+#echo "s0p1: ${suf_s0p1[*]}"
+#echo "s0p2: ${suf_s0p2[*]}"
+#echo "s0p3  ${suf_s1p1[*]}"
+#echo "s0p4  ${suf_s1p2[*]}"
+
+
 
 #brocade vars for peerzone format
 brocade_peerzone_targeta=$(echo "${targeta[*]}" | tr ' ' ';')
