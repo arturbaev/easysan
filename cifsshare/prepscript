@@ -1,5 +1,0 @@
-apt update
-apt upgrade -y
-apt install -y xlsx2csv
-apt install -y cifs-utils
-apt install -y sshpass

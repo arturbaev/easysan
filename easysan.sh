@@ -22,10 +22,10 @@
 
 
 #Files paths
-pwwns_xlsx="$HOME/scripts/SAN/zoning/cifsshare/pwwns.xlsx"
-pwwns_csv="$HOME/scripts/SAN/zoning/tmp/pwwns.csv"
-brocade_txt="$HOME/scripts/SAN/zoning/cifsshare/brocade.txt"
-cisco_txt="$HOME/scripts/SAN/zoning/cifsshare/cisco.txt"
+pwwns_xlsx="/scripts/SAN/zoning/cifsshare/pwwns.xlsx"
+pwwns_csv="/scripts/SAN/zoning/tmp/pwwns.csv"
+brocade_txt="/scripts/SAN/zoning/cifsshare/brocade.txt"
+cisco_txt="/scripts/SAN/zoning/cifsshare/cisco.txt"
 
 
 #Main menu
@@ -214,15 +214,15 @@ xlsx2csv -i "$pwwns_xlsx" > "$pwwns_csv"
 FN_LEFT_MENU
 #Type=array
 servername=($(cat $pwwns_csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 3 ))
-ip=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*0-9,.,\n' | cut -d ',' -f 4 ))
-init_s0p1=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 5 | sed 's/../&:/g;s/:$//'))
-init_s0p2=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 6 | sed 's/../&:/g;s/:$//'))
+ip=($(cat $pwwns_csv | tail -n +2 | tr -dc '*0-9,.,\n' | cut -d ',' -f 4 ))
+init_s0p1=($(cat $pwwns_csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 5 | sed 's/../&:/g;s/:$//'))
+init_s0p2=($(cat $pwwns_csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 6 | sed 's/../&:/g;s/:$//'))
 
-targeta=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 9 | sed 's/../&:/g;s/:$//'))
-targetb=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 10 | sed 's/../&:/g;s/:$//'))
+targeta=($(cat $pwwns_csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 9 | sed 's/../&:/g;s/:$//'))
+targetb=($(cat $pwwns_csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | tr [:upper:] [:lower:] | cut -d ',' -f 10 | sed 's/../&:/g;s/:$//'))
 
-alitargeta=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 9 ))
-alitargetb=($(cat ~/scripts/SAN/zoning/tmp/pwwns.csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 10 ))
+alitargeta=($(cat $pwwns_csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 9 ))
+alitargetb=($(cat $pwwns_csv | tail -n +2 | tr -dc '*,A-Z,a-z,0-9,_,\n' | cut -d ',' -f 10 ))
 
 #create temp vars for array
 a="-1"
@@ -557,7 +557,8 @@ done
 #change initiator initiator_type=FC wwn=2100000e1e22b460 multipath_type=third-party failover_mode=special_mode special_mode_type=mode1 path_type=optimized
 }
 
-
+#echo "hello"
+#read -p "hello: " wait
 
 FN_RELOAD
 FN_MENU
